@@ -1,4 +1,5 @@
 import helper.UserAPIHelper;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import org.junit.After;
 import org.junit.Assert;
@@ -62,6 +63,7 @@ public class LoginTest {
     }
 
     @Test
+    @DisplayName("Check login using the button Login to your account on the main page")
     public void checkLogIn() throws InterruptedException {
         MainPage mainPage = new MainPage(driver);
         LoginPage loginPage = new LoginPage(driver);
@@ -84,6 +86,7 @@ public class LoginTest {
     }
 
     @Test
+    @DisplayName("Check login through the button Personal account")
     public void checkLogInAccount() throws InterruptedException {
         MainPage mainPage = new MainPage(driver);
         LoginPage loginPage = new LoginPage(driver);
@@ -105,6 +108,7 @@ public class LoginTest {
     }
 
     @Test
+    @DisplayName("Check the login through the button in the registration form")
     public void checkLogInFormRegister() throws InterruptedException {
         MainPage mainPage = new MainPage(driver);
         LoginPage loginPage = new LoginPage(driver);
@@ -131,6 +135,7 @@ public class LoginTest {
     }
 
     @Test
+    @DisplayName("Check the login through the button in the password recovery form")
     public void checkLogInForgotPassword() throws InterruptedException {
         MainPage mainPage = new MainPage(driver);
         LoginPage loginPage = new LoginPage(driver);

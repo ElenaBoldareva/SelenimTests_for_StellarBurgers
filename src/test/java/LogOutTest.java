@@ -1,4 +1,5 @@
 import helper.UserAPIHelper;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import org.junit.After;
 import org.junit.Assert;
@@ -62,6 +63,7 @@ public class LogOutTest {
     }
 
     @Test
+    @DisplayName("Check the exit by clicking the Exit button in your account.")
     public void checkClickAccount() throws InterruptedException {
         MainPage mainPage = new MainPage(driver);
         LoginPage loginPage = new LoginPage(driver);

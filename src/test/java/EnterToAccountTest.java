@@ -1,4 +1,5 @@
 import helper.UserAPIHelper;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import org.junit.After;
 import org.junit.Assert;
@@ -18,15 +19,14 @@ import util.UserUtils;
 import java.time.Duration;
 
 @RunWith(Parameterized.class)
-public class RegisterPageTest {
-
+public class EnterToAccountTest {
     private static final String HOST = "https://stellarburgers.nomoreparties.site/";
     private static final int DEFAULT_TIMEOUT = 60;
     private final String browser;
     private WebDriver driver;
     private UserAPIHelper userAPIHelper;
 
-    public RegisterPageTest(String browser) {
+    public EnterToAccountTest(String browser) {
         this.browser = browser;
     }
 
@@ -62,13 +62,14 @@ public class RegisterPageTest {
     }
 
     @Test
-    public void checkRegistration() throws InterruptedException {
+    @DisplayName("Enter to the Account Page by clicking on Personal account button")
+    public void checkClickAccount() throws InterruptedException {
+
         MainPage mainPage = new MainPage(driver);
         LoginPage loginPage = new LoginPage(driver);
         RegisterPage registerPage = new RegisterPage(driver);
 
         User user = UserUtils.getRandomUser();
-
         mainPage.clickAccountLink();
         loginPage.clickRegisterLink();
         registerPage.setName(user.getName());
@@ -77,30 +78,17 @@ public class RegisterPageTest {
         Thread.sleep(500);
         registerPage.clickRegisterButton();
         loginPage.waitForLoad(DEFAULT_TIMEOUT);
+        loginPage.setEmail(user.getEmail());
+        loginPage.setPassword(user.getPassword());
+        Thread.sleep(500);
+        loginPage.clickSignInButton();
+        mainPage.waitForLoad(DEFAULT_TIMEOUT);
+        mainPage.clickAccountLink();
+        Thread.sleep(1000);
 
-        String expectedUrl = HOST + "login";
+        String expectedUrl = HOST + "account/profile";
         Assert.assertEquals(expectedUrl, driver.getCurrentUrl());
 
         userAPIHelper.deleteUser(user);
     }
-
-    @Test
-    public void checkRegistrationWrongPassword() throws InterruptedException {
-        MainPage mainPage = new MainPage(driver);
-        LoginPage loginPage = new LoginPage(driver);
-        RegisterPage registerPage = new RegisterPage(driver);
-
-        User user = new User(UserUtils.getRandomEmail(11), "12345", "Tom");
-
-        mainPage.clickAccountLink();
-        loginPage.clickRegisterLink();
-        registerPage.setName(user.getName());
-        registerPage.setEmail(user.getEmail());
-        registerPage.setPassword(user.getPassword());
-        Thread.sleep(500);
-        registerPage.clickRegisterButton();
-
-        Assert.assertTrue(registerPage.isWrongPassword());
-    }
 }
-

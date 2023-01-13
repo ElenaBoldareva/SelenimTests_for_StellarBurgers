@@ -1,4 +1,4 @@
-import helper.UserAPIHelper;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import org.junit.After;
 import org.junit.Assert;
@@ -56,6 +56,7 @@ public class ConstructorTest {
     }
 
     @Test
+    @DisplayName("Checking the choice of ingredients")
     public void checkConstructor() {
 
         MainPage mainPage = new MainPage(driver);

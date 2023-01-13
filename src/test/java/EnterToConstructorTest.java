@@ -1,4 +1,5 @@
 import helper.UserAPIHelper;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import org.junit.After;
 import org.junit.Assert;
@@ -19,7 +20,7 @@ import util.UserUtils;
 import java.time.Duration;
 
 @RunWith(Parameterized.class)
-public class ClickLogoAndConstructorTest {
+public class EnterToConstructorTest {
 
     private static final String HOST = "https://stellarburgers.nomoreparties.site/";
     private static final int DEFAULT_TIMEOUT = 60;
@@ -27,7 +28,7 @@ public class ClickLogoAndConstructorTest {
     private WebDriver driver;
     private UserAPIHelper userAPIHelper;
 
-    public ClickLogoAndConstructorTest(String browser) {
+    public EnterToConstructorTest(String browser) {
         this.browser = browser;
     }
 
@@ -63,6 +64,7 @@ public class ClickLogoAndConstructorTest {
     }
 
     @Test
+    @DisplayName("Enter from the Account Page by clicking on the Constructor button")
     public void checkClickConstructor() throws InterruptedException {
 
         MainPage mainPage = new MainPage(driver);
@@ -85,7 +87,7 @@ public class ClickLogoAndConstructorTest {
         loginPage.clickSignInButton();
         mainPage.waitForLoad(DEFAULT_TIMEOUT);
         mainPage.clickAccountLink();
-        Thread.sleep(1000);
+        profilePage.waitForLoad(DEFAULT_TIMEOUT);
         profilePage.clickConstructorButton();
         Assert.assertEquals(HOST, driver.getCurrentUrl());
 
@@ -93,6 +95,7 @@ public class ClickLogoAndConstructorTest {
     }
 
     @Test
+    @DisplayName("Enter from the Account Page by clicking on the Logo button")
     public void checkClickLogo() throws InterruptedException {
 
         MainPage mainPage = new MainPage(driver);
