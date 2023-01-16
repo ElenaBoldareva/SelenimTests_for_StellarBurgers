@@ -2,6 +2,8 @@ package pageobjects;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -15,8 +17,6 @@ public class LoginPage {
     private final By signInButton = By.xpath(".//button[text() = 'Войти']");
     private final By registerLink = By.linkText("Зарегистрироваться");
     private final By forgotPasswordLink = By.linkText("Восстановить пароль");
-    private final By logo = By.xpath(".//div[@class='AppHeader_header__logo__2D0X2']/a");
-
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
@@ -36,7 +36,9 @@ public class LoginPage {
     }
 
     public void clickSignInButton() {
-        driver.findElement(signInButton).click();
+        Actions actions = new Actions(driver);
+        WebElement button = driver.findElement(signInButton);
+        actions.moveToElement(button).click().build().perform();
     }
 
     public void clickRegisterLink() {
@@ -47,7 +49,4 @@ public class LoginPage {
         driver.findElement(forgotPasswordLink).click();
     }
 
-    public void clickLogo() {
-        driver.findElement(logo).click();
-    }
 }

@@ -2,6 +2,8 @@ package pageobjects;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -38,7 +40,9 @@ public class RegisterPage {
     }
 
     public void clickRegisterButton() {
-        driver.findElement(registerButton).click();
+        Actions actions = new Actions(driver);
+        WebElement button = driver.findElement(registerButton);
+        actions.moveToElement(button).click().build().perform();
     }
 
     public boolean isWrongPassword() {

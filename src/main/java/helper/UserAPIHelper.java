@@ -8,7 +8,7 @@ import static io.restassured.RestAssured.given;
 public class UserAPIHelper {
 
     private static final String USER_URL = "/api/auth/user/";
-    private static final String LOGIN_URL = "/api/auth/login/";
+    private static final String REGISTER_URL = "/api/auth/register/";
 
     public Response deleteUser(String token) {
         Response response =
@@ -18,20 +18,15 @@ public class UserAPIHelper {
         return response;
     }
 
-    public void deleteUser(User user) {
-        Response response = loginUser(user);
-        String accessToken = response.path("accessToken");
-        deleteUser(accessToken);
-    }
-
-    public Response loginUser(User user) {
+    public String createUser(User user) {
         Response response =
                 given()
                         .header("Content-type", "application/json")
                         .and()
                         .body(user)
                         .when()
-                        .post(LOGIN_URL);
-        return response;
+                        .post(REGISTER_URL);
+        String accessToken = response.path("accessToken");
+        return accessToken;
     }
 }
