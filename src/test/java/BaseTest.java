@@ -6,6 +6,7 @@ import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import pageobjects.*;
 import pojo.User;
 import util.UserUtils;
 
@@ -19,7 +20,12 @@ public class BaseTest {
     protected WebDriver driver;
     protected UserAPIHelper userAPIHelper;
     protected User user;
-    private String accessToken;
+    protected String accessToken;
+    protected MainPage mainPage;
+    protected LoginPage loginPage;
+    protected RegisterPage registerPage;
+    protected ProfilePage profilePage;
+    protected ForgotPasswordPage forgotPasswordPage;
 
     public BaseTest(String browser) {
         this.browser = browser;
@@ -52,6 +58,13 @@ public class BaseTest {
         userAPIHelper = new UserAPIHelper();
         user = UserUtils.getRandomUser();
         accessToken = userAPIHelper.createUser(user);
+
+        mainPage = new MainPage(driver);
+        loginPage = new LoginPage(driver);
+        registerPage = new RegisterPage(driver);
+        profilePage = new ProfilePage(driver);
+        forgotPasswordPage = new ForgotPasswordPage(driver);
+        mainPage.waitForLoad(DEFAULT_TIMEOUT);
     }
 
     @After

@@ -3,9 +3,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import pageobjects.LoginPage;
-import pageobjects.MainPage;
-import pageobjects.RegisterPage;
 import pojo.User;
 import util.UserUtils;
 
@@ -19,13 +16,8 @@ public class RegisterTest extends BaseTest {
     @Test
     @DisplayName("Check Successful Registration")
     public void checkRegistration() {
-        MainPage mainPage = new MainPage(driver);
-        LoginPage loginPage = new LoginPage(driver);
-        RegisterPage registerPage = new RegisterPage(driver);
-
         User user = UserUtils.getRandomUser();
 
-        mainPage.waitForLoad(DEFAULT_TIMEOUT);
         mainPage.clickAccountLink();
         loginPage.waitForLoad(DEFAULT_TIMEOUT);
         loginPage.clickRegisterLink();
@@ -43,20 +35,15 @@ public class RegisterTest extends BaseTest {
     @Test
     @DisplayName("Check Error for invalid password")
     public void checkRegistrationWrongPassword() {
-        MainPage mainPage = new MainPage(driver);
-        LoginPage loginPage = new LoginPage(driver);
-        RegisterPage registerPage = new RegisterPage(driver);
+        User wrongUser = new User(UserUtils.getRandomEmail(11), "12345", "Tom");
 
-        User user = new User(UserUtils.getRandomEmail(11), "12345", "Tom");
-
-        mainPage.waitForLoad(DEFAULT_TIMEOUT);
         mainPage.clickAccountLink();
         loginPage.waitForLoad(DEFAULT_TIMEOUT);
         loginPage.clickRegisterLink();
         registerPage.waitForLoad(DEFAULT_TIMEOUT);
-        registerPage.setName(user.getName());
-        registerPage.setEmail(user.getEmail());
-        registerPage.setPassword(user.getPassword());
+        registerPage.setName(wrongUser.getName());
+        registerPage.setEmail(wrongUser.getEmail());
+        registerPage.setPassword(wrongUser.getPassword());
         registerPage.clickRegisterButton();
 
         Assert.assertTrue(registerPage.isWrongPassword());

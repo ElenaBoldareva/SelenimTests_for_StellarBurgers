@@ -3,9 +3,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import pageobjects.LoginPage;
-import pageobjects.MainPage;
-import pageobjects.ProfilePage;
 
 @RunWith(Parameterized.class)
 public class EnterToConstructorTest extends BaseTest {
@@ -17,11 +14,6 @@ public class EnterToConstructorTest extends BaseTest {
     @Test
     @DisplayName("Enter to the Constructor page from the Account Page by clicking on the Constructor button")
     public void checkClickConstructor() {
-        MainPage mainPage = new MainPage(driver);
-        LoginPage loginPage = new LoginPage(driver);
-        ProfilePage profilePage = new ProfilePage(driver);
-
-        mainPage.waitForLoad(DEFAULT_TIMEOUT);
         mainPage.clickSingInButton();
         loginPage.waitForLoad(DEFAULT_TIMEOUT);
         loginPage.setEmail(user.getEmail());
@@ -37,11 +29,6 @@ public class EnterToConstructorTest extends BaseTest {
     @Test
     @DisplayName("Enter to the Constructor page from the Account Page by clicking on the Logo button")
     public void checkClickLogo() {
-        MainPage mainPage = new MainPage(driver);
-        LoginPage loginPage = new LoginPage(driver);
-        ProfilePage profilePage = new ProfilePage(driver);
-
-        mainPage.waitForLoad(DEFAULT_TIMEOUT);
         mainPage.clickSingInButton();
         loginPage.waitForLoad(DEFAULT_TIMEOUT);
         loginPage.setEmail(user.getEmail());
