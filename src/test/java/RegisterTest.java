@@ -30,6 +30,8 @@ public class RegisterTest extends BaseTest {
 
         String expectedUrl = HOST + "login";
         Assert.assertEquals(expectedUrl, driver.getCurrentUrl());
+
+        userAPIHelper.deleteUser(user);
     }
 
     @Test
